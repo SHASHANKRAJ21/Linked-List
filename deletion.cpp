@@ -32,7 +32,18 @@ int getlength(node *head){
     return count;
 }
 void deleting(node* &head,node* &tail,int position ){
+
     int length=getlength(head);
+    if(head==NULL){
+        cout<<"that the list is empty can't delete element";
+    }
+    if(head==tail){
+        node*temp=head;
+        delete temp;
+        head=NULL;
+        tail=NULL;
+        return;
+    }
     if(position==1){
         node*temp=head;
         head=temp->next;

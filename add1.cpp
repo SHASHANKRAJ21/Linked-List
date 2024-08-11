@@ -37,6 +37,7 @@ void printll(node *head)
         temp = temp->next;
     }
     cout << endl;
+    cout<<endl;
 }
 void insert_new_node_at_first(node *&head, node *&tail, int data)
 {
@@ -93,7 +94,7 @@ void insert_at_position(node *&head, node *&tail, int data, int position)
         prev->next = newnode;
     }
 }
-node* reversenode(node *head)
+node *reversenode(node *head)
 {
     node *prev = NULL;
     node *curr = head;
@@ -106,22 +107,54 @@ node* reversenode(node *head)
     }
     return prev;
 }
+void addone(node *head)
+{
+    head = reversenode(head);
+    node *temp = head;
+    int carry = 88;
+    while (temp->next != NULL)
+    {
+        int totalscore = temp->data + carry;
+        int digit = totalscore % 10;
+        carry = totalscore / 10;
+        temp->data = digit;
+        temp = temp->next;
+        if (carry == 0)
+        {
+            break;
+        }
+    }
+    if (carry != 0)
+    {
+        int totalscore = temp->data + carry;
+        int digit = totalscore % 10;
+        carry = totalscore / 10;
+        temp->data = digit;
+        if (carry != 0)
+        {
+            node *newnode = new node(carry);
+            temp->next = newnode;
+        }
+
+    }
+    head=reversenode(head);
+}
 int main()
 {
-    node *first = new node(10);
-    node *second = new node(20);
-    node *third = new node(30);
-    node *fourth = new node(40);
-    node *fifth = new node(50);
-    node *sixth = new node(60);
+    node *first = new node(1);
+    node *second = new node(2);
+    node *third = new node(3);
+    // node *fourth = new node(40);
+    // node *fifth = new node(50);
+    // node *sixth = new node(60);
     first->next = second;
     second->next = third;
-    third->next = fourth;
-    fourth->next = fifth;
-    fifth->next = sixth;
-    sixth->next = NULL;
+    third->next = NULL;
+    // fourth->next = fifth;
+    // fifth->next = sixth;
+    // sixth->next = NULL;
     node *head = first;
-    node *tail = sixth;
+    // node *tail = sixth;
     cout << "printing the entire linked list" << endl;
     printll(head);
     // cout<<"printing the length of the linked list"<<endl;
@@ -130,10 +163,12 @@ int main()
     // insert_new_node_at_first(head,tail,100);
     // printll(head);
     // insert_at_tail(head,tail,400);
+    // // printll(head);
+    // insert_at_position(head, tail, 200, 6);
     // printll(head);
-    insert_at_position(head, tail, 200, 6);
-    printll(head);
-    cout<<endl; 
-    head=reversenode(head);
+    // cout << endl;
+    // head = reversenode(head);
+    // printll(head);
+    addone(head);
     printll(head);
 }
